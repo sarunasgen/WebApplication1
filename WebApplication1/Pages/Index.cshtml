@@ -1,0 +1,58 @@
+﻿@page
+@using WebApplication1.Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Mano random skaicius @Model.RandomSkaicius</p>
+
+    <table>
+        <tr>
+            <th>Company</th>
+            <th>Contact</th>
+            <th>Country</th>
+        </tr>
+        @foreach(Company a in Model.Companies)
+        {
+            <tr>
+                <td>@a.Name</td>
+                <td>@a.Country</td>
+                <td>@a.Director</td>
+            </tr>
+        }
+       
+
+    </table>
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <table>
+        <tr>
+            <th>First name</th>
+            <th>Last Name</th>
+            <th>Film Length</th>
+        </tr>
+        @foreach (ActorFilmDetail a in Model.ActorsAndTheirFilms)
+        {
+            <tr>
+                <td>@a.FirstName</td>
+                <td>@a.LastName</td>
+                <td>@a.Length</td>
+            </tr>
+        }
+
+
+    </table>
+    <label for="name">Ivesk varda: </label>
+    <input type="text" name="vardas" />
+    <button asp-action="OnGet">Siusti Varda</button>
+
+
+</div>
