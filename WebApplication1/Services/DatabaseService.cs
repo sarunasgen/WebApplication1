@@ -26,13 +26,53 @@ namespace WebApplication1.Services
                 return db.Query<ActorFilmDetail>(sql);
             }
         }
-        public void DeleteActor(int actorId)
+        public IEnumerable<TestObject2> GetTestObjectsType2()
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                const string sql = @"
-                DELETE FROM actor WHERE actor_id = @actorId";
-                db.Query(sql, new { actorId });
+                const string sql = "SELECT ID ,EMAIL FROM TestLentele2";
+
+                return db.Query<TestObject2>(sql);
+            }
+        }
+        public void DeleteRecord(int recordId)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                const string sql = "DELETE FROM TestLentele WHERE ID = @RecordIdToDelete;";
+                db.Execute(sql, new { RecordIdToDelete = recordId });
+            }
+        }
+        public void DeleteRecordType2(TestObject2 test)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                const string sql = "DELETE FROM TestLentele2 WHERE ID = @ID;";
+                db.Execute(sql, test);
+            }
+        }
+        public void InsertTestObject1(TestObject1 testObject)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                const string sql = "INSERT INTO TestLentele (EMAIL) VALUES (@Email);";
+                db.Execute(sql, testObject);
+            }
+        }
+        public void InsertTestObject2(TestObject2 testObject)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                const string sql = "INSERT INTO TestLentele2 (EMAIL) VALUES (@Email);";
+                db.Execute(sql, testObject);
+            }
+        }
+        public void InsertTestObject1Alternative(TestObject1 testObject)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                const string sql = "INSERT INTO test1 (ID, EMAIL) VALUES (@manoId, @manoEmail);";
+                db.Execute(sql, new { manoId = testObject.ID, manoEmail = testObject.Email }); //Kai nurodome parametrus atskirai (one-by-one)
             }
         }
     }
